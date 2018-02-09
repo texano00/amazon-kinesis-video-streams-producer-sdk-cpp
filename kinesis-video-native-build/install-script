@@ -91,7 +91,7 @@ if [ ! -f $DOWNLOADS/local/lib/libssl.a ]; then
   cd $DOWNLOADS
   tar -xvf openssl-1.1.0f.tar.gz
   cd $DOWNLOADS/openssl-1.1.0f
-  ./config  --prefix=$DOWNLOADS/local/ --openssldir=$DOWNLOADS/local/
+  ./Configure linux-generic32 --prefix=$DOWNLOADS/local/ --openssldir=$DOWNLOADS/local/
   make
   make install
 fi
