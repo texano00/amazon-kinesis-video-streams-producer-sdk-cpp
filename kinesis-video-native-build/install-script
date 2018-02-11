@@ -112,7 +112,6 @@ if [ ! -f $DOWNLOADS/local/lib/libcurl.a ]; then
 fi
 
 echo "Checking log4cplus at $DOWNLOADS/local/lib/liblog4cplus.dylib/.so"
-if [ ! -f $DOWNLOADS/local/lib/liblog4cplus.dylib ]; then
   if [ ! -f $DOWNLOADS/local/lib/liblog4cplus.so ]; then
     echo "log4cplus lib not found. Installing"
     if [ ! -f $DOWNLOADS/log4cplus-1.2.0.tar.xz ]; then
@@ -125,12 +124,10 @@ if [ ! -f $DOWNLOADS/local/lib/liblog4cplus.dylib ]; then
     ./configure --prefix=$DOWNLOADS/local/
     make
     make install
-  fi
 fi
 
 echo "Checking gettext at $DOWNLOADS/local/lib/libgettextlib.dylib/.so"
-if [ ! -f $DOWNLOADS/local/lib/libgettextlib.dylib ]; then
- if [ ! -f $DOWNLOADS/local/lib/libgettextlib.so ]; then
+if [ ! -f $DOWNLOADS/local/lib/libgettextlib.la ]; then
    echo "gettext lib not found. Installing"
    if [ ! -f $DOWNLOADS/gettext-0.19.8.tar.xz ]; then
      cd $DOWNLOADS
@@ -142,7 +139,6 @@ if [ ! -f $DOWNLOADS/local/lib/libgettextlib.dylib ]; then
    ./configure --prefix=$DOWNLOADS/local/
    make
    make install
- fi
 fi
 
 
@@ -157,7 +153,7 @@ if [ ! -f $DOWNLOADS/local/lib/libffi.dylib ]; then
     cd $DOWNLOADS
     tar -xvf libffi-3.2.1.tar.gz
     cd $DOWNLOADS/libffi-3.2.1
-    ./configure --prefix=$DOWNLOADS/local/
+    ./configure --host=armv7 --build=armv7 --prefix=$DOWNLOADS/local/
     make
     make install
   fi
@@ -208,7 +204,7 @@ if [ ! -f $DOWNLOADS/local/lib/libiconv.dylib ]; then
     cd $DOWNLOADS
     tar -xvf libiconv-1.15.tar.gz
     cd $DOWNLOADS/libiconv-1.15
-    ./configure --prefix=$DOWNLOADS/local/
+    ./configure --host=armv7 --prefix=$DOWNLOADS/local/
     make
     make install
   fi
