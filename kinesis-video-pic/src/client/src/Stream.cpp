@@ -264,8 +264,6 @@ STATUS freeStream(PKinesisVideoStream pKinesisVideoStream)
     freeContentView(pKinesisVideoStream->pView);
     freeMkvGenerator(pKinesisVideoStream->pMkvGenerator);
     freeStateMachine(pKinesisVideoStream->base.pStateMachine);
-    hashTableFree(pKinesisVideoStream->pSessionMap);
-    hashTableFree(pKinesisVideoStream->pStartIndexMap);
 
     freeUploadInfoQueue(pKinesisVideoStream);
 
@@ -770,31 +768,6 @@ STATUS getStreamData(PKinesisVideoStream pKinesisVideoStream, PUINT64 pClientStr
 
     // Reset the state to streaming
     pUploadHandleInfo->state = UPLOAD_HANDLE_STATE_STREAMING;
-
-    // We will exit with an EOS on the restart
-    if (restarted || !IS_VALID_UPLOAD_HANDLE(pKinesisVideoStream->streamHandle)) {
-        // Remove the session from the map
-        if (IS_VALID_UPLOAD_HANDLE(pKinesisVideoStream->streamHandle)) {
-            hashTableRemove(pKinesisVideoStream->pSessionMap, pKinesisVideoStream->streamHandle);
-            pKinesisVideoStream->newStreamHandle = INVALID_UPLOAD_HANDLE_VALUE;
-        }
-
-        // Set the new handle if different than the current and reset the current otherwise to
-        // indicate an invalid session. Both will result in an early return with an EOS
-        if (pKinesisVideoStream->streamHandle != pKinesisVideoStream->newStreamHandle) {
-            pKinesisVideoStream->streamHandle = pKinesisVideoStream->newStreamHandle;
-        } else {
-            pKinesisVideoStream->streamHandle = INVALID_UPLOAD_HANDLE_VALUE;
-        }
-
-        DLOGV("Indicating EOS after reconnecting for stream upload handle: %" PRIu64
-                ". Restarted: %u, current upload handle: %" PRIu64
-                ", new upload handle: %" PRIu64, *pClientStreamHandle,
-                restarted, pKinesisVideoStream->streamHandle, pKinesisVideoStream->newStreamHandle);
-
-        // This is the case when we are restarting. We need to close off the old connection. Early return
-        CHK(FALSE, STATUS_END_OF_STREAM);
-    }
 
     // Continue filling the buffer from the point we left off
     do {

@@ -26,8 +26,8 @@ echo " Starting to build the Kinesis Video Stream Demo Application
         automake
         m4
         also the gstreamer, gstreamer plugins, yasm, gst-libav and x264.
-        Note - for MacOS High Sierra: Use 
-            brew install autoconf  
+        Note - for MacOS High Sierra: Use
+            brew install autoconf
             brew install bison
  "
 # Make confirmation optional for Docker builds
@@ -110,7 +110,7 @@ if [ ! -f $DOWNLOADS/local/lib/libssl.a ]; then
   tar -xvf openssl-1.1.0f.tar.gz
   cd $DOWNLOADS/openssl-1.1.0f
   ./Configure linux-armv4 --prefix=$DOWNLOADS/local/ --openssldir=$DOWNLOADS/local/
-  make
+  make CC="arm-linux-gnueabihf-gcc-4.9" AR="arm-linux-gnueabihf-ar r"
   make install
 fi
 
@@ -332,6 +332,8 @@ if [ ! -f $DOWNLOADS/local/lib/libglib-2.0.dylib ]; then
    cd $DOWNLOADS
    tar -xvf glib-2.54.2.tar.xz
    cd $DOWNLOADS/glib-2.54.2
+   echo "glib_cv_stack_grows=no\n glib_cv_uscore=no" > arm-linux.cache
+   chmod a-w arm-linux.cache
    autoreconf -f -i
    ./configure --cache-file=./arm-linux.cache --target=${CROSS_COMPILE} --host=${CROSS_COMPILE} --build=${BUILDMACH} --prefix=$DOWNLOADS/local/ --with-pcre --with-libiconv
    make

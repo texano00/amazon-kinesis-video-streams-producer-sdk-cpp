@@ -1282,7 +1282,6 @@ typedef STATUS (*StreamDataAvailableFunc)(UINT64,
                                           PCHAR,
                                           UPLOAD_HANDLE,
                                           UINT64,
-                                          UINT64,
                                           UINT64);
 
 ///////////////////////////////////////////////////////////////

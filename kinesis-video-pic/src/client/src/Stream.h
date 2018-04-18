@@ -201,15 +201,6 @@ struct __KinesisVideoStream {
     // The current session index which will be used to get the upload handle map.
     UINT64 curSessionIndex;
 
-    // New stream timestamp which will be used as current after the rotation in relative timestamp streams.
-    UINT64 newSessionTimestamp;
-
-    // New stream item index which will be used to determine when to purge the upload stream/
-    UINT64 newSessionIndex;
-
-    // The current session index which will be used to get the upload handle map.
-    UINT64 curSessionIndex;
-
     // Describe stream returned status
     STREAM_STATUS streamStatus;
 

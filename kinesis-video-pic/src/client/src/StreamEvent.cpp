@@ -433,11 +433,6 @@ STATUS putStreamResult(PKinesisVideoStream pKinesisVideoStream, SERVICE_CALL_RES
     // Ensueue the stream upload info object
     CHK_STATUS(stackQueueEnqueue(pKinesisVideoStream->pUploadInfoQueue, (UINT64) pUploadHandleInfo));
 
-    // If we haven't yet set the stream handle then set it
-    if (!IS_VALID_UPLOAD_HANDLE(pKinesisVideoStream->streamHandle)) {
-        pKinesisVideoStream->streamHandle = pKinesisVideoStream->newStreamHandle;
-    }
-
     // Step the machine
     CHK_STATUS(stepStateMachine(pKinesisVideoStream->base.pStateMachine));
 
