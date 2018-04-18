@@ -618,6 +618,10 @@ export CMAKE_PREFIX_PATH="$DOWNLOADS/local"
 ## --------- build kinesis video ---------
 cd $KINESIS_VIDEO_ROOT
 cmake CMakeLists.txt
+make producer
+make start
+make kinesis_video_gstreamer_sample_app
+make kinesis_video_gstreamer_sample_rtsp_app
 
 echo "**********************************************************"
 echo Success!!!

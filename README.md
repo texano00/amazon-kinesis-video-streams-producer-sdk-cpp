@@ -214,7 +214,7 @@ optionally, set `AWS_SESSION_TOKEN` if integrating with temporary token and `AWS
 The GStreamer demo app will be built in `kinesis_video_gstreamer_sample_app` in the `kinesis-video-native-build` directory. Launch it with a stream name and it will start streaming from the camera. The user can also supply a streaming resolution (width and height) through command line arguments.
 
 ```
-Usage: AWS_ACCESS_KEY_ID=<SAMPLEKEY> AWS_SECRET_ACCESS_KEY=<SAMPLESECRET> ./kinesis_video_gstreamer_sample_app <my-stream-name> -w <width> -h <height> -f <framerate> -b <bitrateInKBPS>
+Usage: AWS_ACCESS_KEY_ID=<SAMPLEKEY> AWS_SECRET_ACCESS_KEY=<SAMPLESECRET> ./kinesis_video_gstreamer_sample_app -w <width> -h <height> -f <framerate> -b <bitrateInKBPS> <my_stream_name>
 ```
 * **A.** If resolution is provided then the sample will try to check if the camera supports that resolution. If it does detect that the camera can supprt the resolution supplied in command line, then streaming starts; else, it will fail with an error msg `Resolution not supported`
   
@@ -229,11 +229,18 @@ AWS_ACCESS_KEY_ID=<ACCESS_KEY> AWS_SECRET_ACCESS_KEY=<SECRET_KEY> ./kinesis_vide
 
 ```
 
+##### Run the demo application from Docker
+
+Refer the **README.md** file in the  *docker_native_scripts* folder for running the build and RTSP demo app within Docker container.
+
 #### Running C++ Unit tests
 
 The executable for **unit tests** will be built in `./start` inside the `kinesis-video-native-build` directory. Launch it and it will run the unit test and kick off dummy frame streaming.
 
+The GStreamer RTSP demo app will be built in `kinesis_video_gstreamer_sample_rtsp_app` in the `kinesis-video-native-build` directory. Launch it with a stream name and `rtsp_url`  and it will start streaming.
 
+```
+AWS_ACCESS_KEY_ID=<ACCESS_KEY> AWS_SECRET_ACCESS_KEY=<SECRET_KEY> ./kinesis_video_gstreamer_sample_rtsp_app <my_rtsp_url> my-rtsp-stream
 
 #### Enabling verbose logs
 Define `HEAP_DEBUG` and `LOG_STREAMING` C-defines by uncommenting the appropriate lines in CMakeList.txt in the kinesis-video-native-build directory.
@@ -263,6 +270,21 @@ Ubuntu bulds link against the system versions of the open source component libra
  ./install-script
 ``` 
    to rebuild and re-link the project only.
+
+##### Library not found error when running the demo application
+If any error similar to the following shows that the library path is not properly set:
+
+```
+ liblog4cplus-1.2.so.5: cannot open shared object file: No such file or directory
+
+```
+To resolve this issue, export the LD_LIBRARY_PATH=`<full path to your sdk cpp directory`>/kinesis-video-native-build/downloads/local/lib. If you have downloaded the CPP SDK in `/opt/awssdk` directory then you can set
+	the LD_LIBRARY_PATH as below:
+
+```
+export LD_LIBRARY_PATH=/opt/awssdk/amazon-kinesis-video-streams-producer-sdk-cpp/kinesis-video-native-build/downloads/local/lib:$LD_LIBRARY_PATH
+
+```
 
 ##### Raspberry PI failure to load the camera device.
 
@@ -322,6 +344,12 @@ make install
 
 
 ## Release Notes
+
+#### Release 1.3.1 (5th April 2018)
+* Fixed video source negotiation error caused by camera with fractional fps 
+* Docker suport for RTSP streaming
+#### Release 1.3.0 (15th March 2018)
+* Fixed producer intermittent termination issue for some edge cases involving re-streaming on error.
 #### Release 1.2.3 (1st March 2018)
 * Updated install-script to fix the local certificate trust issue for curl.
 * Added steps in README troubleshooting section for curl trust issues.
