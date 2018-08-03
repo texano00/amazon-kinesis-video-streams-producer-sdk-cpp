@@ -4,7 +4,7 @@ phases:
   build:
     commands:
       - cd ./kinesis-video-native-build
-      - ./install_script -a
+      - ./kinesis-video-native-build/install_script -a
     finally:
       - echo This always runs even if the install command fails
 artifacts:
