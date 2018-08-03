@@ -181,8 +181,8 @@ if [ ! -f $DOWNLOADS/local/lib/libssl.a ]; then
   cd $DOWNLOADS
   tar -xvf openssl-1.1.0f.tar.gz
   cd $DOWNLOADS/openssl-1.1.0f
-  ./config  --prefix=$DOWNLOADS/local/ --openssldir=$DOWNLOADS/local/
-  make -j $max_parallel
+  ./Configure linux-armv4 --prefix=$DOWNLOADS/local/ --openssldir=$DOWNLOADS/local/
+  make CC="arm-linux-gnueabihf-gcc-4.9" AR="arm-linux-gnueabihf-ar r" -j $max_parallel
   make install
 fi
 
