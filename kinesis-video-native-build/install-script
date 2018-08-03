@@ -583,7 +583,7 @@ if [ ! -f $DOWNLOADS/local/bin/yasm ]; then
        (cd "$d" && ./"${DOWNLOADS}"/local/bin/autoreconf -f -i);
      fi
    done
-   ./configure --prefix=$DOWNLOADS/local  CFLAGS="-I$DOWNLOADS/local/include" LDFLAGS="-L$DOWNLOADS/local/lib"
+   ./configure --target=${CROSS_COMPILE} --host=${CROSS_COMPILE} --prefix=$DOWNLOADS/local  CFLAGS="-I$DOWNLOADS/local/include" LDFLAGS="-L$DOWNLOADS/local/lib"
    make -j $max_parallel
    make install
 fi
