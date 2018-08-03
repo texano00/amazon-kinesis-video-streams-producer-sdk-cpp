@@ -309,7 +309,7 @@ include_directories(${OPEN_SRC_INCLUDE_DIRS})
 include_directories(/System/Library/Frameworks/JavaVM.framework/Versions/Current/Headers)
 include_directories(${JAVA_HOME}/include)
 include_directories(${JAVA_HOME}/include/${CMAKE_SYSTEM_NAME_LOWER_CASE})
-
+include_directories(downloads/local/include)
 link_directories(${OPEN_SRC_LIBRARY_DIRS})
 add_library(producer SHARED ${PRODUCER_SOURCE_FILES})
 add_library(KinesisVideoProducerJNI SHARED ${PRODUCER_SOURCE_FILES_JNI} ${PIC_SOURCE_FILES})
@@ -335,3 +335,10 @@ target_link_libraries(kinesis_video_gstreamer_sample_app
 target_link_libraries(kinesis_video_gstreamer_sample_rtsp_app
         producer
         ${GST_DEMO_LIBRARIES})
+
+get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
+foreach(dir ${dirs})
+  message(STATUS "dir='${dir}'")
+endforeach()
+
+message(STATUS "test='${LOG4CPLUS_INCLUDE_DIRS}'")

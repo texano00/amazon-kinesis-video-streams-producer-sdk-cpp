@@ -106,7 +106,6 @@ export BUILDMACH=i586-pc-linux-gnu
 export CROSS_COMPILE=arm-linux-gnueabihf
 
 # --------- create require directories ---------
-KINESIS_VIDEO_ROOT=`pwd`
 
 if [[ "$KINESIS_VIDEO_ROOT" == *\ * ]]; then
     echo "Current working path cannot have space in it !"
