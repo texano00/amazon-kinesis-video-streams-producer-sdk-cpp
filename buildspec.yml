@@ -11,6 +11,6 @@ phases:
       - echo This always runs even if the install command fails
 artifacts:
   files:
-    - $CODEBUILD_SRC_DIR/kinesis-video-native-build/downloads/local/lib/**/*
-    - $CODEBUILD_SRC_DIR/kinesis-video-native-build/downloads/local/include/**/*
+    - $CODEBUILD_SRC_DIR/kinesis-video-native-build/downloads/local
+    - $CODEBUILD_SRC_DIR/kinesis-video-native-build/libproducer.so
   discard-paths: yes
