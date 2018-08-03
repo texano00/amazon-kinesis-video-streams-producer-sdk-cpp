@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - ./install_script -a
+    finally:
+      - echo This always runs even if the install command fails
+artifacts:
+  files:
+    - /work/downloads/local/lib/**/*
+    - /work/downloads/local/include/**/*
+  discard-paths: yes
