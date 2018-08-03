@@ -3,7 +3,7 @@ version: 0.2
 phases:
   build:
     commands:
-      - cd ./kinesis-video-native-build
+      - cd $CODEBUILD_SRC_DIR
       - ./kinesis-video-native-build/install_script -a
     finally:
       - echo This always runs even if the install command fails
