@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <time.h>
 
 LOGGER_TAG("com.amazonaws.kinesis.video.gstkvs");
 
@@ -58,12 +59,11 @@ void KvsSinkRotatingCredentialProvider::updateCredentials(Credentials &credentia
     } else {
         std::tm timeinfo = std::tm();
         std::istringstream ss(expiration_string);
-        if (ss >> std::get_time(&timeinfo, "%Y-%m-%dT%H:%M:%SZ"))
-        {
+
+        if (strptime(expiration_string.c_str(), "%Y-%m-%dT%H:%M:%SZ", &timeinfo) != NULL) {
             std::time_t tt = std::mktime(&timeinfo);
             system_clock::time_point tp = system_clock::from_time_t (tt);
             expiration = std::chrono::duration_cast<std::chrono::seconds>(tp.time_since_epoch());
-
         } else {
             LOG_ERROR("Failed to parse AWS_TOKEN_EXPIRATION.");
             goto CleanUp;
