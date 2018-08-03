@@ -15,5 +15,5 @@ artifacts:
     - $CODEBUILD_SRC_DIR/kinesis-video-native-build/downloads/local/lib/**/*
     - $CODEBUILD_SRC_DIR/kinesis-video-native-build/downloads/local/include/**/*
     - $CODEBUILD_SRC_DIR/kinesis-video-native-build/libproducer.so
-
+    - $CODEBUILD_SRC_DIR/kinesis-video-gstreamer-plugin/libgstkvssink.so
   discard-paths: no
