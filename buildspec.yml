@@ -3,10 +3,10 @@ version: 0.2
 phases:
   build:
     commands:
-      - cd $CODEBUILD_SRC_DIR
+      - cd $CODEBUILD_SRC_DIR/kinesis-video-native-build
       - pwd
       - ls
-      - ./kinesis-video-native-build/install_script -a
+      - install_script -a
     finally:
       - echo This always runs even if the install command fails
 artifacts:
