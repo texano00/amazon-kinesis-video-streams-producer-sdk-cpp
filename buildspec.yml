@@ -5,6 +5,7 @@ phases:
     commands:
       - cd $CODEBUILD_SRC_DIR/kinesis-video-native-build
       - pwd
+      - apt-get install gcc-arm-linux-gnueabihf
       - ls
       - ./install-script -a
       - ./gstreamer-plugin-install-script
